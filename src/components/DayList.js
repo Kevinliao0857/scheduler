@@ -5,7 +5,6 @@ const classNames = require("classnames")
 
 
 export default function DayList(props){
-  console.log({props})
   const days = props.days.map(day => {
     return(
       <ul>     
