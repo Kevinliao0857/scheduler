@@ -6,6 +6,8 @@ import Show from "./Show"
 import Confirm from "./Confirm"
 import Status from "./Status"
 import Error from "./Error"
+import Form from "./Form"
+
 
 import "./styles.scss";
 
@@ -20,6 +22,7 @@ export default function Appointment(props) {
     <Confirm />
     <Status />
     <Error />
+    <Form />
     
     </article> 
   
