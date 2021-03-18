@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import DayList from "components/DayList";
 import Appointment from "./Appointment";
 import "components/Application.scss";
+import { getAppointmentsForDay } from "../helpers/selectors";
 
 const axios = require('axios').default;
 
@@ -77,38 +78,45 @@ export default function Application(props) {
     days: [],
     appointments: {}
   });
-  const dailyAppointments = [];
   
   const setDay = day => setState({...state, day});
   // const setDays = (days) => setState(prev => ({ ...prev, days }));
+
+  const dailyAppointments = getAppointmentsForDay(state, state.day)
+
+
+//   const appointments = getAppointmentsForDay(state, day);
+
+// const schedule = appointments.map((appointment) => {
+//   const interview = getInterview(state, appointment.interview);
+
+//   return (
+//     <Appointment
+//       key={appointment.id}
+//       id={appointment.id}
+//       time={appointment.time}
+//       interview={interview}
+//     />
+//   );
+// });
+
   
 
-  // useEffect(() => {
-  //   axios.get("/api/days").then(response => {
-  //     setDays([...response.data]);
-  //   });
-  // }, [])
 
-  // useEffect(() => {
-  //   axios.get("/api/appointments").then(response => {
-  //     console.log(response.data);
-  //   });
-  // }, [])
+  useEffect(() => {
+    Promise.all([
+      axios.get("/api/days"),
+      axios.get("/api/appointments"),
+      axios.get("/api/interviewers"),
+    ]).then((all) => {
+      console.log(all)
+      setState(prev => ({...prev, days: all[0].data, appointments: all[1].data, interviewers: all[2].data}))
+    })
 
-  Promise.all([
-    Promise.resolve("first"),
-    Promise.resolve("second"),
-    Promise.resolve("third"),
-  ]).then((all) => {
-    console.log(all[0]); // first
-    console.log(all[1]); // second
-    console.log(all[2]); // third
+  }, [])
+
   
-    const [first, second, third] = all;
-  
-    console.log(all)
-    console.log(first, second, third);
-  });
+
 
   return (
     <main className="layout">
@@ -120,11 +128,13 @@ export default function Application(props) {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
-          <DayList 
+          
+        <DayList 
           days={state.days} 
           day={state.day} 
           setDay={setDay} />
-        </nav>
+        
+          </nav>
         <img
           className="sidebar__lhl sidebar--centered"
           src="images/lhl.png"
