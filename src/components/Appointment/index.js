@@ -1,4 +1,5 @@
 import React from "react";
+import "./styles.scss";
 
 import Header from "./Header";
 import Empty from "./Empty";
@@ -7,7 +8,6 @@ import Form from "./Form";
 
 import useVisualMode from "hooks/useVisualMode";
 
-import "./styles.scss";
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
@@ -28,11 +28,11 @@ export default function Appointment(props) {
     // console.log(name)
     // console.log(interviewer)
 
-    props.bookInterview(props.id, interview)
-
-    transition(SHOW)
     // console.log("id: ",  props.id)
     // console.log("interview: ",  interview)
+    props.bookInterview(props.id, interview)
+      .then(() => transition(SHOW))
+    
   }
 
 

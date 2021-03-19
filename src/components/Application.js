@@ -110,14 +110,14 @@ export default function Application(props) {
     
     
     
-    axios.put("/api/appointments/:id", {interview})
-    .then(() => {
+    return axios.put(`/api/appointments/${id}`, {interview})
+    .then(
       setState({
-        ...state,
+        ...state, 
         appointments
-      });
-    })
-  }
+      })
+    )
+  };
 
 
   
