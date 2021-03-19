@@ -7,6 +7,7 @@ import Show from "./Show";
 import Form from "./Form";
 import Status from "./Status";
 import Confirm from "./Confirm";
+import Error from "./Error";
 import useVisualMode from "hooks/useVisualMode";
 
 
@@ -15,7 +16,10 @@ const SHOW = "SHOW";
 const CREATE = "CREATE";
 const SAVING = "SAVING";
 const DELETING = "DELETING";
-const CONFIRM = "CONFIRM"
+const CONFIRM = "CONFIRM";
+const EDIT = "EDIT";
+const ERROR_SAVE = "ERROR_SAVE";
+const ERROR_DELETE = "ERROR_DELETE";
 
 
 export default function Appointment(props) {
@@ -31,26 +35,24 @@ export default function Appointment(props) {
     };
     // console.log(name)
     // console.log(interviewer)
-
     // console.log("id: ",  props.id)
     // console.log("interview: ",  interview)
 
     transition(SAVING)
     props.bookInterview(props.id, interview)
       .then(() => transition(SHOW))
-    
+      .catch(() => transition(ERROR_SAVE))
   }
 
   function deleting() {
     transition(CONFIRM)
-
-
   }
 
   function confirmDelete() {
     transition(DELETING)
     props.cancelInterview(props.id)
       .then(() => transition(EMPTY))
+      .catch(() => transition(ERROR_DELETE))
   }
 
   return (
@@ -64,6 +66,7 @@ export default function Appointment(props) {
           student={props.interview.student}
           interviewer={props.interview.interviewer}
           onDelete={deleting}
+          onEdit={() => transition(EDIT)}
         />
       )}
 
@@ -93,6 +96,32 @@ export default function Appointment(props) {
           onCancel={back}
           onConfirm={confirmDelete}
         />
+      )}
+
+    {mode === EDIT && (
+      <Form
+        interviewer={props.interview.interviewer} 
+        //Question for AR Should I use {props.interview.interviewer.id}
+        interviewers={props.interviewers}
+        name={props.interview.student}
+        onCancel={back}
+        onSave={save}
+      />
+    )}
+
+
+    {mode === ERROR_SAVE && (
+      <Error
+        message={"SOMETHINGS WRONG!!! ITS NOT SAVING!!!!!"}
+        onClose={back}
+      />
+    )}
+
+    {mode === ERROR_DELETE && (
+      <Error
+        message={"SOMETHINGS WRONG!!! ITS NOT DELETING!!!!!"}
+        onClose={back}
+      />
     )}
 
     </article>
