@@ -31,7 +31,7 @@ export default function useVisualMode(initial) {
   };
   
   const mode = history.slice(-1)[0];
-  return { mode, transition, back, history };
+  return { mode, transition, back };
 }
 
 
