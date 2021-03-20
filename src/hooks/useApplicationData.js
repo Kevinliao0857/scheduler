@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 const axios = require('axios').default;
+
+
+
 
 
 export default function useApplicationData() {
@@ -40,12 +43,14 @@ export default function useApplicationData() {
         [id]: appointment
       };
       
+      const spots = updateSpots(state.day, state.days, appointments)
       return axios.put(`/api/appointments/${id}`, {interview})
       .then(() => {
-  
         setState({
           ...state, 
-          appointments
+          appointments,
+          days: spots /* or just spots if things break */
+
         })
       })
     };
@@ -61,16 +66,75 @@ export default function useApplicationData() {
         [id]: appointment
       };
       
+      const spots = updateSpots(state.day, state.days, appointments)
       return axios.delete(`/api/appointments/${id}`)
       .then(() => {
   
         setState({
           ...state, 
-          appointments
+          appointments,
+          days: spots
         })
       })
     };
   
-    return { state, setDay, bookInterview, cancelInterview }
+    function updateSpots(day, days, appointments) {
+      const filterDay = days.find(item => item.name === day);
+      const unBooked = getUnbookedCount(filterDay, appointments);
+      const newArray = days.map(item => {
+        if (item.name === day) {
+          return { ...item, spots: unBooked }
+        }
+        return item;
+      })
+      console.log(newArray)
+      return newArray;
+    };
 
-}
+
+    function getUnbookedCount(day, appointments) {
+      let count = 0;
+      for (const id of day.appointments) {
+        const appointment = appointments[id];
+        if (!appointment.interview) {
+          count++;
+        }
+      }
+      return count;
+    }
+
+
+    
+    
+    
+    return { state, setDay, bookInterview, cancelInterview }
+    
+  }
+
+
+
+  // const newSpots = (state, appointments, id) => {
+
+  //   let dayID = state.days.filter((item) => {
+  //     return item.name === state.day;
+  //   })[0].id;
+
+  //   const appointmentsForDay = state.days[dayID - 1].appointments;
+
+  //   let spots = 0;
+
+  //   for (let appt of appointmentsForDay) {
+  //     if (appointments[appt].interview === null) {
+  //       spots++;
+  //     }
+  //   }
+
+  //   const days = state.days.map((day) => {
+  //     if (day.id === dayID) {
+  //       return { ...day, spots }
+  //     }
+  //     return day;
+  //   })
+
+  //   return days;
+  // }

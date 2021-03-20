@@ -51,6 +51,7 @@ export default function Application(props) {
           
         <DayList 
           days={state.days} 
+          // {...console.log("testing",state.days)}
           day={state.day} 
           setDay={setDay} />
         
