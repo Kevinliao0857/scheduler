@@ -110,31 +110,3 @@ export default function useApplicationData() {
     return { state, setDay, bookInterview, cancelInterview }
     
   }
-
-
-
-  // const newSpots = (state, appointments, id) => {
-
-  //   let dayID = state.days.filter((item) => {
-  //     return item.name === state.day;
-  //   })[0].id;
-
-  //   const appointmentsForDay = state.days[dayID - 1].appointments;
-
-  //   let spots = 0;
-
-  //   for (let appt of appointmentsForDay) {
-  //     if (appointments[appt].interview === null) {
-  //       spots++;
-  //     }
-  //   }
-
-  //   const days = state.days.map((day) => {
-  //     if (day.id === dayID) {
-  //       return { ...day, spots }
-  //     }
-  //     return day;
-  //   })
-
-  //   return days;
-  // }
