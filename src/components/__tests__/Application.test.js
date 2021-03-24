@@ -14,9 +14,9 @@ import {
   // prettyDOM,
 } from "@testing-library/react";
 
-// import axios from "__mocks__/axios";
+import axios from "__mocks__/axios";
 
-import axios from "axios";
+// import axios from "axios";
 
 import Application from "components/Application";
 
@@ -95,12 +95,22 @@ describe("Application", () => {
     // 4. Click the "interviewer" for the booked appointment.
     fireEvent.click(getByAltText(appointment, "Tori Malcolm"));
 
-    // 5. Click on the "Save" button
+    // 5. Change the "name" in placeholder.
+    fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
+      target: { value: "Lydia Miller-Jones" },
+    });
+
+    // 6. Click on the "Save" button.
     fireEvent.click(queryByText(appointment, "Save"));
 
     expect(getByText(appointment, "Saving")).toBeInTheDocument();
 
-    // 6. Check that the DayListItem with the text "Monday" also has the text "1 spot remaining".
+    // 7. Wait to see "name" and "interviewer" change.
+    await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
+
+    await waitForElement(() => getByText(appointment, "Tori Malcolm"));
+
+    // 8. Check that the DayListItem with the text "Monday" also has the text "1 spot remaining".
     const day = getAllByTestId(container, "day").find((day) =>
       queryByText(day, "Monday")
     );
@@ -128,19 +138,24 @@ describe("Application", () => {
     // 4. Click the "interviewer" for the booked appointment.
     fireEvent.click(getByAltText(appointment, "Tori Malcolm"));
 
-    // 5. Click on the "Save" button
+    // 5. Change the "name" in placeholder.
+    fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
+      target: { value: "Lydia Miller-Jones" },
+    });
+
+    // 6. Click on the "Save" button
     fireEvent.click(queryByText(appointment, "Save"));
 
     expect(getByText(appointment, "Saving")).toBeInTheDocument();
 
-    // 6. Wait for "Save" Error message
+    // 7. Wait for "Save" Error message
     await waitForElement(() =>
       getByText(appointment, "SOMETHINGS WRONG!!! ITS NOT SAVING!!!!!")
     );
 
-    // 7. Close Error message and return to pre-edit form
+    // 8. Close Error message and return to edit form
     fireEvent.click(getByAltText(appointment, "Close"));
-    expect(getByText(appointment, "Archie Cohen")).toBeInTheDocument();
+    expect(getByPlaceholderText(appointment, /enter student name/i)).toBeInTheDocument();
   });
 
   it("shows the delete error when failing to delete an existing appointment", async () => {

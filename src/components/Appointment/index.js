@@ -38,7 +38,7 @@ export default function Appointment(props) {
     // console.log("id: ",  props.id)
     // console.log("interview: ",  interview)
 
-    transition(SAVING, true)
+    transition(SAVING) 
     props.bookInterview(props.id, interview)
       .then(() => transition(SHOW))
       .catch(() => transition(ERROR_SAVE, true))
@@ -100,8 +100,7 @@ export default function Appointment(props) {
 
     {mode === EDIT && (
       <Form
-        interviewer={props.interview.interviewer} 
-        //Question for AR Should I use {props.interview.interviewer.id}
+        interviewer={props.interview.interviewer.id} 
         interviewers={props.interviewers}
         name={props.interview.student}
         onCancel={back}
