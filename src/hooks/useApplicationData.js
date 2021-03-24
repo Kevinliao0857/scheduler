@@ -42,7 +42,7 @@ export default function useApplicationData() {
       setState({
         ...state,
         appointments,
-        days: spots /* or just spots if things break */,
+        days: spots,
       });
     });
   }

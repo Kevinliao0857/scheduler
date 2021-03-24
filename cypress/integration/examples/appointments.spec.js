@@ -34,5 +34,5 @@ describe("Appointments", () => {
       .should("not.exist");
   });
   
- });
+});
  
