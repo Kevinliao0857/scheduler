@@ -45,6 +45,4 @@ export const getInterview = (state, interview) => {
       }
     }
   }
-  // // test coverage points at possible reduncency, keeping just incase of breakage
-  // return;
 };
