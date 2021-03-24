@@ -155,7 +155,9 @@ describe("Application", () => {
 
     // 8. Close Error message and return to edit form
     fireEvent.click(getByAltText(appointment, "Close"));
-    expect(getByPlaceholderText(appointment, /enter student name/i)).toBeInTheDocument();
+    expect(
+      getByPlaceholderText(appointment, /enter student name/i)
+    ).toBeInTheDocument();
   });
 
   it("shows the delete error when failing to delete an existing appointment", async () => {
