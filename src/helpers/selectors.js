@@ -50,8 +50,8 @@ export const getInterview = (state, interview) => {
       }
     }
   };
-
-return;
+// commenting out to check test
+// return;
 };
 
 
