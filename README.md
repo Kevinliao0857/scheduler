@@ -1,5 +1,11 @@
 # Interview Scheduler
 
+## Screen Shots
+
+!["Scheduler Full Page"](https://github.com/Kevinliao0857/scheduler/blob/master/public/images/sched%20full.png)
+!["Scheduler Empty Page"](https://github.com/Kevinliao0857/scheduler/blob/master/public/images/sched%20empty.png)
+
+
 ## Setup
 
 Install dependencies with `npm install`.
@@ -21,8 +27,3 @@ npm test
 ```sh
 npm run storybook
 ```
-
-## Screen Shots
-
-!["Scheduler Full Page"](https://github.com/Kevinliao0857/scheduler/blob/master/public/images/sched%20full.png)
-!["Scheduler Empty Page"](https://github.com/Kevinliao0857/scheduler/blob/master/public/images/sched%20empty.png)
