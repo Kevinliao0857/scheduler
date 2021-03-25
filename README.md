@@ -24,5 +24,5 @@ npm run storybook
 
 ## Screen Shots
 
-!["Scheduler Full Page"](https://github.com/Kevinliao0857/tweeter/blob/master/public/images/Tweeter%20Full%20window.png)
-!["Scheduler Empty Page"](https://github.com/Kevinliao0857/tweeter/blob/master/public/images/Tweeter%20Mobile.png)
+!["Scheduler Full Page"](https://github.com/Kevinliao0857/scheduler/blob/master/public/images/sched%20full.png)
+!["Scheduler Empty Page"](https://github.com/Kevinliao0857/scheduler/blob/master/public/images/sched%20empty.png)
